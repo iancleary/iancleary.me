@@ -15,7 +15,7 @@
         </div>
         <div class="flex items-strech mt-12 grid gap-5 max-w-xlg mx-auto lg:grid-cols-2 lg:max-w-none">
           <BlogSectionCard
-            v-for="post in sortedPosts"
+            v-for="post in sortedPostsNotCurrentView"
             :key="post.fields.slug"
             :title="post.fields.title"
             :slug="post.fields.slug"
@@ -52,6 +52,14 @@ export default {
      var unSortedPosts = this.$store.state.posts;
      return unSortedPosts.slice().sort(dateMostRecentSortFunction);
    },
+   sortedPostsNotCurrentView(currentPost="") {
+     const array = this.sortedPosts;
+     const index = array.indexOf(currentPost);
+     if (index > -1) {
+       array.splice(index, 1);
+     }
+     return array;
+   }
  },
 };
 </script>
